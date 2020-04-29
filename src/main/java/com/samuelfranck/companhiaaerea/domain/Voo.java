@@ -2,24 +2,22 @@ package com.samuelfranck.companhiaaerea.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
-public class Passageiro implements Serializable{
+public class Voo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
-	private Date dataNascimento;
+	private String numero;
+	private Date dataHora;
 	
-	private Pessoa pessoa;
-	
-	private Set<String> telefones = new HashSet<>();
+	public Voo() {
+	}
 
-	public Passageiro(Integer id, Date dataNascimento, Pessoa pessoa) {
+	public Voo(Integer id, String numero, Date dataHora) {
 		super();
 		this.id = id;
-		this.dataNascimento = dataNascimento;
-		this.pessoa = pessoa;
+		this.numero = numero;
+		this.dataHora = dataHora;
 	}
 
 	public Integer getId() {
@@ -30,28 +28,20 @@ public class Passageiro implements Serializable{
 		this.id = id;
 	}
 
-	public Date getDataNascimento() {
-		return dataNascimento;
+	public String getNumero() {
+		return numero;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 
-	public Pessoa getPessoa() {
-		return pessoa;
+	public Date getDataHora() {
+		return dataHora;
 	}
 
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
-	}
-
-	public Set<String> getTelefones() {
-		return telefones;
-	}
-
-	public void setTelefones(Set<String> telefones) {
-		this.telefones = telefones;
+	public void setDataHora(Date dataHora) {
+		this.dataHora = dataHora;
 	}
 
 	@Override
@@ -70,7 +60,7 @@ public class Passageiro implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Passageiro other = (Passageiro) obj;
+		Voo other = (Voo) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -78,8 +68,6 @@ public class Passageiro implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
 	
 	
 
