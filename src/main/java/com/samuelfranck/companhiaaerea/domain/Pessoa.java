@@ -2,15 +2,28 @@ package com.samuelfranck.companhiaaerea.domain;
 
 import java.io.Serializable;
 
-import com.samuelfranck.companhiaaerea.domain.enums.Sexo;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.samuelfranck.companhiaaerea.domain.enums.Sexo;
+@Entity
 public class Pessoa implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	private String cpf;
 	private String nome;
 	private Integer sexo;
 	
+	@JsonIgnore
+	@OneToOne(cascade = CascadeType.ALL, mappedBy="pessoa")
 	private Passageiro passageiro;
 	
 	
@@ -18,14 +31,22 @@ public class Pessoa implements Serializable {
 	}
 
 
-	public Pessoa(String cpf, String nome, Sexo sexo, Passageiro passageiro) {
+	public Pessoa(Integer id, String cpf, String nome, Sexo sexo) {
 		super();
+		this.id = id;
 		this.cpf = cpf;
 		this.nome = nome;
 		this.sexo = sexo.getCod();
-		this.passageiro = passageiro;
+	
 	}
 
+	public Integer getId() {
+		return id;
+	}
+	
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getCpf() {
 		return cpf;
@@ -71,7 +92,7 @@ public class Pessoa implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -85,14 +106,16 @@ public class Pessoa implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Pessoa other = (Pessoa) obj;
-		if (cpf == null) {
-			if (other.cpf != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!cpf.equals(other.cpf))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}
-	
+
+
+		
 	
 	
 

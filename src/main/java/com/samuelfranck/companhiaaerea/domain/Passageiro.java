@@ -5,16 +5,36 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+@Entity
 public class Passageiro implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	@Id
 	private Integer id;
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date dataNascimento;
 	
+	@JoinColumn(name="pessoa_id")
+	@OneToOne
+	@MapsId
 	private Pessoa pessoa;
 	
+	@ElementCollection
+	@CollectionTable(name="TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 
+	public Passageiro() {
+	}
+	
 	public Passageiro(Integer id, Date dataNascimento, Pessoa pessoa) {
 		super();
 		this.id = id;
